@@ -2,14 +2,17 @@ package org.ada.school.service;
 
 import org.ada.school.dto.UserDto;
 import org.ada.school.model.User;
+import org.ada.school.repository.UserDocument;
 import org.ada.school.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserServiceMongoDB<UserRepository> implements UserService {
+
+public class UserServiceMongoDB implements UserService {
 
     private final UserRepository userRepository;
 
@@ -17,43 +20,49 @@ public class UserServiceMongoDB<UserRepository> implements UserService {
         this.userRepository = userRepository;
     }
 
-
     @Override
     public User create(User user) {
-        return userRepository.save(user);
+        UserDocument userDocument = new UserDocument(user);
+        userRepository.save(userDocument);
+        return user;
     }
 
     @Override
     public User findById(String id) {
-        Optional<User> user = userRepository.findById(id);
-        if(user.isPresent()){
-            return user.get();
+        Optional<UserDocument> userDocument = userRepository.findById(id);
+        if (userDocument.isPresent()) {
+            User user = new User(userDocument.get());
+            return user;
         }
         return null;
     }
 
     @Override
     public List<User> all() {
-        return userRepository.findAll();
+        List<UserDocument> usersDocument = userRepository.findAll();
+        List<User> users = new ArrayList();
+        for (UserDocument ud : usersDocument) {
+            users.add(new User(ud));
+        }
+        return users;
     }
 
     @Override
     public boolean deleteById(String id) {
         userRepository.deleteById(id);
-        if(userRepository.findById(id).isPresent()){
-            return false;
-        }
         return true;
     }
 
     @Override
-    public User update( UserDto userDto, String id ) {
-        User user = findById(id);
-        if(user == null){
-            return null;
+    public User update(UserDto userDto, String id) {
+        if (userRepository.existsById(id)) {
+            UserDocument userDocument = userRepository.findById(id).get();
+            userDocument.update(userDto);
+            userRepository.save(userDocument);
+            User user = new User(userDocument);
+            return user;
         }
-        user.update(userDto);
-        userRepository.save(user);
-        return user;
+        return null;
     }
+
 }
