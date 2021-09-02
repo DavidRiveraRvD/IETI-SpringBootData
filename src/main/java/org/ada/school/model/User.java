@@ -1,6 +1,6 @@
-package org.ada.school.SpringBootData.model;
+package org.ada.school.model;
 
-import org.ada.school.SpringBootData.dto.UserDto;
+import org.ada.school.dto.UserDto;
 
 import java.util.Date;
 import java.util.UUID;
