@@ -1,4 +1,4 @@
-package org.ada.school.dto;
+package org.ada.school.SpringBootData.dto;
 
 public class UserDto
 {

@@ -1,7 +1,7 @@
-package org.ada.school.service;
+package org.ada.school.SpringBootData.service;
 
-import org.ada.school.dto.UserDto;
-import org.ada.school.model.User;
+import org.ada.school.SpringBootData.dto.UserDto;
+import org.ada.school.SpringBootData.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

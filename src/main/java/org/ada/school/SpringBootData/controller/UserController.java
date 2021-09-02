@@ -1,8 +1,8 @@
-package org.ada.school.controller;
+package org.ada.school.SpringBootData.controller;
 
-import org.ada.school.dto.UserDto;
-import org.ada.school.model.User;
-import org.ada.school.service.UserService;
+import org.ada.school.SpringBootData.dto.UserDto;
+import org.ada.school.SpringBootData.model.User;
+import org.ada.school.SpringBootData.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
